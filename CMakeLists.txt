@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.00)
 project(triangle)
 
 set(CMAKE_CXX_STANDARD 14)
 
-if (LINUX)
+if (LINUX OR (UNIX AND NOT APPLE))
     find_package(X11 REQUIRED)
     link_libraries(${X11_LIBRARIES})
     include_directories(${X11_INCLUDE_DIR})
