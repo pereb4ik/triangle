@@ -1,4 +1,7 @@
 # triangle
+##  Requirements
+Linux or macOS with OpenGL, Xlib, GLX
+(on Ubuntu packages like libx11-dev, libgl1-mesa-glx, mesa-common-dev)
 
 ## Building the project
 ### Linux
