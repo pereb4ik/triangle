@@ -3,16 +3,20 @@ project(triangle)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(X11 REQUIRED)
-include_directories(${X11_INCLUDE_DIR})
-link_libraries(${X11_LIBRARIES})
+if (LINUX)
+    find_package(X11 REQUIRED)
+    link_libraries(${X11_LIBRARIES})
+    include_directories(${X11_INCLUDE_DIR})
 
-find_package(OpenGL REQUIRED OpenGL GLX)
-include_directories(${OPENGL_INCLUDE_DIRS})
-link_libraries(${OPENGL_LIBRARIES})
+    find_package(OpenGL REQUIRED OpenGL GLX)
+    include_directories(${OPENGL_INCLUDE_DIRS})
+    link_libraries(${OPENGL_LIBRARIES})
+endif ()
 
-#include_directories(/opt/X11/include/) # uncomment for compile on macOS
-#link_directories(/opt/X11/lib) # uncomment for compile on macOS
-#link_libraries(GL X11) # uncomment for compile on macOS
+if (APPLE)
+    include_directories(/opt/X11/include/)
+    link_directories(/opt/X11/lib)
+    link_libraries(GL X11)
+endif ()
 
 add_executable(triangle main.cpp)
