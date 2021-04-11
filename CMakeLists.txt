@@ -13,6 +13,6 @@ link_libraries(${OPENGL_LIBRARIES})
 
 #include_directories(/opt/X11/include/) # uncomment for compile on macOS
 #link_directories(/opt/X11/lib) # uncomment for compile on macOS
+#link_libraries(GL X11) # uncomment for compile on macOS
 
 add_executable(triangle main.cpp)
-#target_link_libraries(triangle GL X11) # uncomment for compile on macOS
