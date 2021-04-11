@@ -22,36 +22,19 @@ GLfloat y = 0.0;
 
 GLfloat BC[] = {37.0 / 255.0, 133.0 / 255.0, 75.0 / 255.0};
 
-float Coord[] = {
-        0.0, 0.0,
-        1.0, 1.0,
-        0.0, 1.0,
-};
-
-float Colors[] = {
-        1.0, 0.0, 0.0,
-        0.0, 1.0, 0.0,
-        0.0, 0.0, 1.0
-};
-
-void draw() {
+void DrawTriangle() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(BC[0], BC[1], BC[2], 1.0);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(x - 1, -y, 0);
-
-
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex2f(x, -y);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex2f(x - 1.0, 1.0 - y);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex2f(x, 1.0 - y);
+    glEnd();
     glXSwapBuffers(display, window);
-}
-
-void prepare() {
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, Coord);
-    glColorPointer(3, GL_FLOAT, 0, Colors);
 }
 
 int main() {
@@ -90,7 +73,6 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     XMapWindow(display, window);
-    prepare();
 
     bool hasTriangle = false;
 
@@ -104,7 +86,7 @@ int main() {
                 height = gwa.height;
                 glViewport(0, 0, width, height);
                 if (hasTriangle) {
-                    draw();
+                    DrawTriangle();
                 } else {
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     glClearColor(BC[0], BC[1], BC[2], 1.0);
@@ -127,9 +109,9 @@ int main() {
                 if (ev.xbutton.button == Button1) {
                     hasTriangle = true;
                     while (ev.type != ButtonRelease) {
-                        x = (GLfloat)(ev.xbutton.x * 2.0 / width);
-                        y = (GLfloat)(ev.xbutton.y * 2.0 / height);
-                        draw();
+                        x = (GLfloat) (ev.xbutton.x * 2.0 / width);
+                        y = (GLfloat) (ev.xbutton.y * 2.0 / height);
+                        DrawTriangle();
                         XNextEvent(display, &ev);
                     }
                 }
