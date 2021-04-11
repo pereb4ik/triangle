@@ -24,3 +24,4 @@ Compile with CMake or command line
 ```
 $ g++ main.cpp -I/opt/X11/include  -L/opt/X11/lib -lGL -lX11 -o triangle
 ```
+And also you need XQuartz runned when you start application.
